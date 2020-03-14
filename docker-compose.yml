@@ -1,0 +1,21 @@
+
+version: "3"
+
+services:
+  selenium-grid:
+    image: selenium/standalone-${BROWSER}-debug
+    container_name: grid
+    ports:
+      - "5900:5900"
+
+  python:
+    image: python:${PYTHON_VERSION}
+    container_name: runner
+    stdin_open: true
+    working_dir: /pytest-dev/pytest-playground/
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+    volumes:
+      - ${DEV}/pytest-dev/:/pytest-dev/
+    depends_on:
+      - selenium-grid
