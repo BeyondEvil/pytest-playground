@@ -4,7 +4,7 @@ SHELL := /bin/bash
 .PHONY: start stop enter
 
 start:
-	@printf "BROWSER=$(browser)\nPYTHON_VERSION=${py-version}\n" > .env
+	@printf "BROWSER=$(browser)\n" > .env
 	docker-compose up -d
 
 stop:

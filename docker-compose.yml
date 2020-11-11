@@ -9,13 +9,26 @@ services:
       - "5900:5900"
 
   python:
-    image: python:${PYTHON_VERSION}
+    build: ./
+    image: local_runner:latest
     container_name: runner
     stdin_open: true
-    working_dir: /pytest-dev/pytest-playground/
+    working_dir: /pytest-playground
     environment:
       - PYTHONDONTWRITEBYTECODE=1
     volumes:
-      - ${DEV}/pytest-dev/:/pytest-dev/
+      - ${PWD}:/pytest-playground
     depends_on:
       - selenium-grid
+
+  # python:
+  #   image: python:${PYTHON_VERSION}
+  #   container_name: runner
+  #   stdin_open: true
+  #   working_dir: /pytest-dev/pytest-playground/
+  #   environment:
+  #     - PYTHONDONTWRITEBYTECODE=1
+  #   volumes:
+  #     - ${DEV}/pytest-dev/:/pytest-dev/
+  #   depends_on:
+  #     - selenium-grid
